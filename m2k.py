@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import ttkbootstrap as ttk
+import ttkbootstrap as ttk 
+import numpy
 
 def convert():
     mile_input = entryInt.get()
