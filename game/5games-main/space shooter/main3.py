@@ -17,7 +17,7 @@ surf = pyg.Surface((50,50))
 surf.fill("lightgreen")
 
 #plain rectnagle
-#plain_rect = pyg.FRect()
+plain_rect = pyg.FRect()
 
 #imports
 
@@ -34,8 +34,8 @@ laser_surf = pyg.image.load(join('images','laser.png'))
 laser_rect = laser_surf.get_frect()
 
 
-player_direction = pyg.math.Vector2()
-player_speed = 350
+player_direction = pyg.math.Vector2(1,1)
+player_speed = 200
 
 
 while running:
@@ -45,29 +45,18 @@ while running:
     for event in pyg.event.get():
         if event.type == pyg.QUIT:
             running = False
-        #if event.type == pyg.KEYDOWN and event.key == pyg.K_LEFT:
-        #    print('left')
-        if event.type == pyg.MOUSEMOTION:                                       #checks if key had been pressed
-            player_rect.center = event.pos
+        if event.type == pyg.KEYDOWN and event.key == pyg.K_LEFT:
+            print('left')
+        if event.type == pyg.MOUSEMOTION:
+            print('Mouse moving')
 
 
-    #print(pyg.mouse.get_pos(), pyg.mouse.get_pressed(),pyg.mouse.get_rel())
-    #player_rect.center =pyg.mouse.get_pos()
-    #keys = pyg.key.get_pressed()                                               #checks in key is kept pressed 
-    #if keys[pyg.K_1]:
-    #    print(1)
-
-    keys = pyg.key.get_pressed()
-    keys_jp = pyg.key.get_just_pressed()
-    player_direction.x = int(keys[pyg.K_RIGHT] or keys[pyg.K_d])-int(keys[pyg.K_LEFT] or keys[pyg.K_a])
-    player_direction.y = int(keys[pyg.K_DOWN] or keys[pyg.K_s])-int(keys[pyg.K_UP] or keys[pyg.K_w])
-    player_direction = player_direction.normalize() if player_direction else player_direction 
-    #print(player_direction,(player_direction*player_speed).magnitude())
-    if keys_jp[pyg.K_SPACE] or pyg.mouse.get_just_pressed()[0]:
-        print('Fire laser')
-
+#movements implementation
+    if player_rect.right > win_width or player_rect.left < 0:
+        player_direction.x *=-1
+    if player_rect.top < 0 or player_rect.bottom > win_height:
+        player_direction.y *=-1
     player_rect.center += player_direction*player_speed*dt
-
 
     laser_rect.midbottom  = (player_rect.midtop[0] , player_rect.midtop[1] -10)   # x, y, width, height 
     

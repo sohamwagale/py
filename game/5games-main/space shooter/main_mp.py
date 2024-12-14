@@ -47,7 +47,7 @@ while running:
             running = False
         #if event.type == pyg.KEYDOWN and event.key == pyg.K_LEFT:
         #    print('left')
-        if event.type == pyg.MOUSEMOTION:                                       #checks if key had been pressed
+        if event.type == pyg.MOUSEMOTION:                                      #checks if key had been pressed
             player_rect.center = event.pos
 
 
